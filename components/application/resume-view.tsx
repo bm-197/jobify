@@ -27,38 +27,57 @@ export function ResumeView({ content }: { content: string }) {
 
     const html2pdf = (await import("html2pdf.js")).default;
 
-    // Create a clone styled for PDF (white bg, black text)
     const clone = resumeRef.current.cloneNode(true) as HTMLElement;
-    clone.style.cssText =
-      "background:#fff;color:#111;padding:40px 48px;font-family:Georgia,serif;font-size:13px;line-height:1.7;max-width:720px;";
+    clone.style.cssText = [
+      "background:#fff",
+      "color:#1a1a1a",
+      "padding:32px 40px",
+      'font-family:"Helvetica Neue",Helvetica,Arial,sans-serif',
+      "font-size:11.5px",
+      "line-height:1.55",
+      "max-width:700px",
+      "letter-spacing:0.01em",
+    ].join(";");
 
-    // Style all elements for print
     clone.querySelectorAll("h1").forEach((el) => {
       (el as HTMLElement).style.cssText =
-        "font-size:22px;font-weight:700;color:#111;margin:0 0 4px;border-bottom:2px solid #222;padding-bottom:6px;";
+        'font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:22px;font-weight:700;color:#111;margin:0 0 2px;padding-bottom:6px;border-bottom:2px solid #111;letter-spacing:0.02em;text-transform:uppercase;';
     });
     clone.querySelectorAll("h2").forEach((el) => {
       (el as HTMLElement).style.cssText =
-        "font-size:15px;font-weight:600;color:#111;margin:18px 0 6px;border-bottom:1px solid #ccc;padding-bottom:3px;";
+        'font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:13px;font-weight:700;color:#111;margin:14px 0 5px;padding-bottom:3px;border-bottom:1px solid #bbb;text-transform:uppercase;letter-spacing:0.06em;';
     });
     clone.querySelectorAll("h3").forEach((el) => {
       (el as HTMLElement).style.cssText =
-        "font-size:13px;font-weight:600;color:#222;margin:12px 0 2px;";
+        'font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:11.5px;font-weight:700;color:#222;margin:10px 0 1px;';
     });
     clone.querySelectorAll("p").forEach((el) => {
-      (el as HTMLElement).style.cssText = "color:#333;margin:4px 0;";
+      (el as HTMLElement).style.cssText =
+        "color:#333;margin:3px 0;font-size:11.5px;line-height:1.55;";
     });
     clone.querySelectorAll("li").forEach((el) => {
-      (el as HTMLElement).style.cssText = "color:#333;margin:2px 0 2px 16px;";
+      (el as HTMLElement).style.cssText =
+        "color:#333;margin:1px 0 1px 14px;font-size:11.5px;line-height:1.5;";
+    });
+    clone.querySelectorAll("ul").forEach((el) => {
+      (el as HTMLElement).style.cssText = "margin:2px 0;padding-left:16px;";
+    });
+    clone.querySelectorAll("ol").forEach((el) => {
+      (el as HTMLElement).style.cssText = "margin:2px 0;padding-left:16px;";
     });
     clone.querySelectorAll("strong").forEach((el) => {
-      (el as HTMLElement).style.cssText = "color:#111;font-weight:600;";
+      (el as HTMLElement).style.cssText = "color:#111;font-weight:700;";
     });
     clone.querySelectorAll("a").forEach((el) => {
-      (el as HTMLElement).style.cssText = "color:#0070f3;text-decoration:none;";
+      (el as HTMLElement).style.cssText =
+        "color:#333;text-decoration:none;";
     });
     clone.querySelectorAll("hr").forEach((el) => {
-      (el as HTMLElement).style.cssText = "border:none;border-top:1px solid #ddd;margin:12px 0;";
+      (el as HTMLElement).style.cssText =
+        "border:none;border-top:1px solid #ccc;margin:10px 0;";
+    });
+    clone.querySelectorAll("em").forEach((el) => {
+      (el as HTMLElement).style.cssText = "color:#555;font-style:italic;";
     });
 
     const container = document.createElement("div");
@@ -67,7 +86,7 @@ export function ResumeView({ content }: { content: string }) {
 
     await html2pdf()
       .set({
-        margin: [10, 10, 10, 10],
+        margin: [12, 12, 12, 12],
         filename: "tailored-resume.pdf",
         image: { type: "jpeg", quality: 0.98 },
         html2canvas: { scale: 2, useCORS: true },
