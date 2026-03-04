@@ -26,10 +26,12 @@ export async function generateApplication(formData: FormData) {
     output_format: "markdown",
   });
 
-  // The n8n webhook should return the generated application ID
-  const applicationId = result?.id || result?.application_id;
+  // n8n returns { status, data: { record_id } }
+  const data = result?.data || result;
+  const applicationId =
+    data?.record_id || data?.id || data?.application_id || result?.record_id;
 
-  if (applicationId) {
+  if (applicationId && applicationId !== "unknown") {
     redirect(`/dashboard/applications/${applicationId}`);
   }
 
