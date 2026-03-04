@@ -74,6 +74,37 @@ export async function processResumeAndLinkedIn(formData: FormData) {
     resume_text: resumeText,
   });
 
+  // Persist enriched profile to Supabase so generate-application can use it
+  if (result && typeof result === "object") {
+    const enriched = result as Record<string, unknown>;
+    const updatePayload: Record<string, unknown> = {
+      resume_raw_text: resumeText,
+    };
+
+    if (enriched.summary) updatePayload.summary = enriched.summary;
+    if (enriched.target_role) updatePayload.target_role = enriched.target_role;
+    if (enriched.linkedin_url) updatePayload.linkedin_url = enriched.linkedin_url;
+    if (Array.isArray(enriched.skills) && enriched.skills.length > 0)
+      updatePayload.skills = enriched.skills;
+    if (Array.isArray(enriched.work_experience) && enriched.work_experience.length > 0)
+      updatePayload.work_experience = enriched.work_experience;
+    if (Array.isArray(enriched.education) && enriched.education.length > 0)
+      updatePayload.education = enriched.education;
+    if (Array.isArray(enriched.certifications) && enriched.certifications.length > 0)
+      updatePayload.certifications = enriched.certifications;
+    if (Array.isArray(enriched.projects) && enriched.projects.length > 0)
+      updatePayload.projects = enriched.projects;
+    if (enriched.linkedin_enriched)
+      updatePayload.linkedin_enriched = enriched.linkedin_enriched;
+    if (enriched.linkedin_data)
+      updatePayload.linkedin_data = enriched.linkedin_data;
+
+    await supabase
+      .from("applicant_profiles")
+      .update(updatePayload)
+      .eq("id", profile.id);
+  }
+
   return result;
 }
 
