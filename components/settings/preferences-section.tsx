@@ -46,7 +46,7 @@ export function PreferencesSection({
   return (
     <form
       onSubmit={handleSubmit}
-      className="group relative overflow-hidden bg-[#0a0a0a] p-6"
+      className="group relative overflow-visible bg-[#0a0a0a] p-6"
     >
       <CropMarks />
       <h3 className="mb-6 text-[16px] font-semibold text-white">Preferences</h3>
@@ -68,7 +68,7 @@ export function PreferencesSection({
                   className="fixed inset-0 z-40"
                   onClick={() => setOpen(false)}
                 />
-                <div className="absolute z-50 mt-1 w-full overflow-hidden border border-[#222] bg-[#0a0a0a] py-1 shadow-xl">
+                <div className="absolute bottom-full z-50 mb-1 w-full overflow-hidden border border-[#222] bg-[#0a0a0a] py-1 shadow-xl">
                   {tones.map((t) => (
                     <button
                       key={t.value}
