@@ -114,19 +114,25 @@ export async function updateApplicationNotes(
 export async function getDashboardStats(
   supabase: SupabaseClient
 ): Promise<DashboardStats> {
+  const empty: DashboardStats = {
+    totalApplications: 0,
+    avgMatchScore: 0,
+    thisWeek: 0,
+    interviews: 0,
+    weeklyApps: [0, 0, 0, 0, 0, 0, 0],
+    weeklyScores: [0, 0, 0, 0, 0, 0, 0],
+    weeklyInterviews: [0, 0, 0, 0, 0, 0, 0],
+  };
+
   const profile = await getApplicantProfile(supabase);
-  if (!profile) {
-    return { totalApplications: 0, avgMatchScore: 0, thisWeek: 0, interviews: 0 };
-  }
+  if (!profile) return empty;
 
   const { data: apps } = await supabase
     .from("generated_applications")
     .select("match_score, created_at, application_status")
     .eq("user_id", profile.id);
 
-  if (!apps || apps.length === 0) {
-    return { totalApplications: 0, avgMatchScore: 0, thisWeek: 0, interviews: 0 };
-  }
+  if (!apps || apps.length === 0) return empty;
 
   const totalApplications = apps.length;
   const avgMatchScore = Math.round(
@@ -143,5 +149,44 @@ export async function getDashboardStats(
     (a) => a.application_status === "interview"
   ).length;
 
-  return { totalApplications, avgMatchScore, thisWeek, interviews };
+  // Build 7-day sparkline data from real applications
+  const weeklyApps: number[] = [];
+  const weeklyScores: number[] = [];
+  const weeklyInterviews: number[] = [];
+
+  for (let i = 6; i >= 0; i--) {
+    const dayStart = new Date();
+    dayStart.setDate(dayStart.getDate() - i);
+    dayStart.setHours(0, 0, 0, 0);
+    const dayEnd = new Date(dayStart);
+    dayEnd.setDate(dayEnd.getDate() + 1);
+
+    const dayApps = apps.filter((a) => {
+      const d = new Date(a.created_at);
+      return d >= dayStart && d < dayEnd;
+    });
+
+    weeklyApps.push(dayApps.length);
+    weeklyScores.push(
+      dayApps.length > 0
+        ? Math.round(
+            dayApps.reduce((s, a) => s + (a.match_score || 0), 0) /
+              dayApps.length
+          )
+        : 0
+    );
+    weeklyInterviews.push(
+      dayApps.filter((a) => a.application_status === "interview").length
+    );
+  }
+
+  return {
+    totalApplications,
+    avgMatchScore,
+    thisWeek,
+    interviews,
+    weeklyApps,
+    weeklyScores,
+    weeklyInterviews,
+  };
 }

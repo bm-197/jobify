@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
   title: "Jobify",
   description: "The fastest way to generate cover letter and resumes",
+  icons: {
+    icon: "/logo.png"
+  }
 };
 
 const geistSans = Geist({

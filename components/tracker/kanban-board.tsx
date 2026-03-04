@@ -31,7 +31,7 @@ export function KanbanBoard({
   };
 
   return (
-    <div className="flex gap-4 overflow-x-auto pb-4">
+    <div className="scrollbar-fade flex gap-4 overflow-x-auto pb-6">
       {columns.map((col) => (
         <KanbanColumn
           key={col.status}

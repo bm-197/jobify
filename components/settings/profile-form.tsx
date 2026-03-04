@@ -1,9 +1,9 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { CropMarks } from "@/components/ui/crop-marks";
 import { updateProfile } from "@/app/dashboard/settings/actions";
 import type { ApplicantProfile } from "@/lib/types";
 import { useState } from "react";
@@ -28,74 +28,75 @@ export function ProfileForm({ profile }: { profile: ApplicantProfile }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-xl border border-[#1f1f1f] bg-[#111] p-6"
+      className="group relative overflow-hidden bg-[#0a0a0a] p-6"
     >
-      <h3 className="mb-6 text-lg font-semibold text-white">Profile</h3>
+      <CropMarks />
+      <h3 className="mb-6 text-[16px] font-semibold text-white">Profile</h3>
       <div className="space-y-4">
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-2">
-            <Label className="text-gray-300">Full Name</Label>
+            <Label className="text-[13px] text-[#888]">Full Name</Label>
             <Input
               name="full_name"
               defaultValue={profile.full_name}
-              className="border-[#1f1f1f] bg-[#0a0a0a] text-white"
+              className="border-[#222] bg-black text-[14px] text-white focus:border-[#444]"
             />
           </div>
           <div className="space-y-2">
-            <Label className="text-gray-300">Phone</Label>
+            <Label className="text-[13px] text-[#888]">Phone</Label>
             <Input
               name="phone"
               defaultValue={profile.phone}
-              className="border-[#1f1f1f] bg-[#0a0a0a] text-white"
+              className="border-[#222] bg-black text-[14px] text-white focus:border-[#444]"
             />
           </div>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-2">
-            <Label className="text-gray-300">Location</Label>
+            <Label className="text-[13px] text-[#888]">Location</Label>
             <Input
               name="location"
               defaultValue={profile.location}
-              className="border-[#1f1f1f] bg-[#0a0a0a] text-white"
+              className="border-[#222] bg-black text-[14px] text-white focus:border-[#444]"
             />
           </div>
           <div className="space-y-2">
-            <Label className="text-gray-300">Target Role</Label>
+            <Label className="text-[13px] text-[#888]">Target Role</Label>
             <Input
               name="target_role"
               defaultValue={profile.target_role}
-              className="border-[#1f1f1f] bg-[#0a0a0a] text-white"
+              className="border-[#222] bg-black text-[14px] text-white focus:border-[#444]"
             />
           </div>
         </div>
         <div className="space-y-2">
-          <Label className="text-gray-300">Summary</Label>
+          <Label className="text-[13px] text-[#888]">Summary</Label>
           <Textarea
             name="summary"
             rows={3}
             defaultValue={profile.summary}
-            className="border-[#1f1f1f] bg-[#0a0a0a] text-white"
+            className="border-[#222] bg-black text-[14px] text-white focus:border-[#444]"
           />
         </div>
         <div className="space-y-2">
-          <Label className="text-gray-300">Skills (comma-separated)</Label>
+          <Label className="text-[13px] text-[#888]">Skills (comma-separated)</Label>
           <Textarea
             name="skills"
             rows={2}
             defaultValue={profile.skills?.join(", ")}
-            className="border-[#1f1f1f] bg-[#0a0a0a] text-white"
+            className="border-[#222] bg-black text-[14px] text-white focus:border-[#444]"
           />
         </div>
       </div>
       <div className="mt-6 flex items-center gap-3">
-        <Button
+        <button
           type="submit"
           disabled={loading}
-          className="bg-white text-black hover:bg-gray-200"
+          className="inline-flex h-9 items-center rounded-full bg-white px-5 text-[14px] font-medium text-black transition-colors hover:bg-[#ccc] disabled:opacity-50"
         >
           {loading ? "Saving..." : "Save Changes"}
-        </Button>
-        {saved && <span className="text-sm text-green-400">Saved</span>}
+        </button>
+        {saved && <span className="text-[12px] text-emerald-400">Saved</span>}
       </div>
     </form>
   );

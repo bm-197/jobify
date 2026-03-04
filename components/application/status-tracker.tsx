@@ -1,15 +1,9 @@
 "use client";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { changeApplicationStatus } from "@/app/dashboard/applications/[id]/actions";
 import type { ApplicationStatus } from "@/lib/types";
 import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 
 const statuses: { value: ApplicationStatus; label: string }[] = [
   { value: "bookmarked", label: "Bookmarked" },
@@ -30,25 +24,43 @@ export function StatusTracker({
   currentStatus: ApplicationStatus;
 }) {
   const [status, setStatus] = useState(currentStatus);
+  const [open, setOpen] = useState(false);
 
-  const handleChange = async (value: string) => {
-    const newStatus = value as ApplicationStatus;
-    setStatus(newStatus);
-    await changeApplicationStatus(applicationId, newStatus);
+  const handleChange = async (value: ApplicationStatus) => {
+    setStatus(value);
+    setOpen(false);
+    await changeApplicationStatus(applicationId, value);
   };
 
+  const currentLabel = statuses.find((s) => s.value === status)?.label || status;
+
   return (
-    <Select value={status} onValueChange={handleChange}>
-      <SelectTrigger className="w-40 border-[#1f1f1f] bg-[#111] text-white">
-        <SelectValue />
-      </SelectTrigger>
-      <SelectContent className="border-[#1f1f1f] bg-[#111]">
-        {statuses.map((s) => (
-          <SelectItem key={s.value} value={s.value} className="text-white">
-            {s.label}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+    <div className="relative">
+      <button
+        onClick={() => setOpen(!open)}
+        className="inline-flex h-9 items-center gap-2 border border-[#222] bg-[#0a0a0a] px-3 text-[13px] font-medium text-white transition-colors hover:border-[#444]"
+      >
+        {currentLabel}
+        <ChevronDown className="h-3.5 w-3.5 text-[#888]" />
+      </button>
+      {open && (
+        <>
+          <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
+          <div className="absolute right-0 z-50 mt-1 w-44 overflow-hidden border border-[#222] bg-[#0a0a0a] py-1 shadow-xl">
+            {statuses.map((s) => (
+              <button
+                key={s.value}
+                onClick={() => handleChange(s.value)}
+                className={`block w-full px-3 py-2 text-left text-[13px] transition-colors hover:bg-[#111] ${
+                  s.value === status ? "text-white" : "text-[#888]"
+                }`}
+              >
+                {s.label}
+              </button>
+            ))}
+          </div>
+        </>
+      )}
+    </div>
   );
 }

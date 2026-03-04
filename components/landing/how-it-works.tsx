@@ -1,76 +1,57 @@
+import { CropMarks } from "@/components/ui/crop-marks";
+
 const steps = [
   {
     number: "01",
     title: "Paste a job description",
     description:
-      "Drop in a URL or paste the job posting text. Our AI extracts every requirement, skill, and qualification.",
+      "Drop in the job posting text or URL. Our AI extracts every requirement, skill, and qualification instantly.",
   },
   {
     number: "02",
     title: "AI matches & generates",
     description:
-      "Gemini compares the JD against your profile, identifies gaps, and crafts perfectly tailored documents.",
+      "Our AI compares the JD against your profile, identifies gaps, and crafts a tailored cover letter and resume.",
   },
   {
     number: "03",
-    title: "Review & apply",
+    title: "Review, export & apply",
     description:
-      "Get your personalized cover letter, resume, and match analysis. Copy, download, and submit with confidence.",
+      "Get your match score, download your documents, and submit with confidence. Track it all on your kanban board.",
   },
 ];
 
 export function HowItWorks() {
   return (
-    <section id="how-it-works" className="relative px-6 py-32">
-      <div className="relative mx-auto max-w-5xl">
-        {/* Section header */}
-        <div className="mb-20 text-center">
-          <p className="mb-4 text-[13px] font-medium uppercase tracking-[0.2em] text-white/30">
-            How it works
-          </p>
-          <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
-            Three steps to a
-            <br />
-            <span className="text-white/50">perfect application</span>
+    <section id="how-it-works" className="border-t border-[#222] px-6 py-24">
+      <div className="mx-auto max-w-[1200px]">
+        {/* Header */}
+        <div className="mb-16 text-center">
+          <h2 className="text-[clamp(28px,4vw,44px)] font-bold tracking-[-0.03em] text-white">
+            Three steps to a perfect application.
           </h2>
+          <p className="mx-auto mt-4 max-w-[460px] text-[16px] text-[#888]">
+            From job posting to tailored application in under a minute.
+          </p>
         </div>
 
         {/* Steps */}
-        <div className="relative">
-          {/* Vertical connecting line (desktop) */}
-          <div className="absolute left-[39px] top-0 hidden h-full w-px bg-gradient-to-b from-white/[0.08] via-white/[0.04] to-transparent md:block" />
-
-          <div className="space-y-16 md:space-y-20">
-            {steps.map((step, i) => (
-              <div key={step.number} className="relative flex gap-8 md:gap-12">
-                {/* Step number */}
-                <div className="relative z-10 flex-shrink-0">
-                  <div className="flex h-20 w-20 items-center justify-center rounded-2xl border border-white/[0.06] bg-[#0a0a0a]">
-                    <span className="text-2xl font-bold tabular-nums text-white/20">
-                      {step.number}
-                    </span>
-                  </div>
-                  {/* Pulse dot */}
-                  {i === 0 && (
-                    <div className="absolute -right-1 -top-1 h-3 w-3">
-                      <div className="absolute inset-0 rounded-full bg-emerald-400/40 animate-ping" />
-                      <div className="absolute inset-0.5 rounded-full bg-emerald-400" />
-                    </div>
-                  )}
-                </div>
-
-                {/* Content */}
-                <div className="flex-1 pt-3">
-                  <h3 className="mb-3 text-xl font-semibold tracking-tight text-white">
-                    {step.title}
-                  </h3>
-                  <p className="max-w-md text-[15px] leading-relaxed text-white/40">
-                    {step.description}
-                  </p>
-                </div>
+        <div className="grid gap-8 md:grid-cols-3">
+          {steps.map((step) => (
+            <div key={step.number} className="group relative overflow-hidden bg-[#0a0a0a] p-6">
+              <CropMarks />
+              {/* Number */}
+              <div className="mb-6 flex h-12 w-12 items-center justify-center border border-[#333] bg-[#111] text-[18px] font-bold tabular-nums text-[#555]">
+                {step.number}
               </div>
-            ))}
-          </div>
+              <h3 className="mb-3 text-[18px] font-semibold text-white">
+                {step.title}
+              </h3>
+              <p className="text-[14px] leading-[1.7] text-[#888]">
+                {step.description}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

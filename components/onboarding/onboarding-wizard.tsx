@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ProgressIndicator } from "./progress-indicator";
+import { CropMarks } from "@/components/ui/crop-marks";
 import { StepWelcome } from "./step-welcome";
 import { StepResume } from "./step-resume";
 import { StepReview } from "./step-review";
@@ -20,7 +21,8 @@ export function OnboardingWizard({
   return (
     <div>
       <ProgressIndicator currentStep={step} />
-      <div className="rounded-xl border border-[#1f1f1f] bg-[#111] p-8">
+      <div className="group relative overflow-hidden bg-[#111] p-8">
+        <CropMarks />
         {step === 0 && (
           <StepWelcome
             defaultName={userName}

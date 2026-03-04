@@ -1,23 +1,22 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { FilePlus } from "lucide-react";
 
 export function QuickActions() {
   return (
     <div className="flex items-center justify-between">
       <div>
-        <h2 className="text-2xl font-bold text-white">Overview</h2>
-        <p className="text-sm text-gray-400">Your job application dashboard</p>
+        <h2 className="text-[22px] font-semibold tracking-tight text-white">
+          Overview
+        </h2>
+        <p className="text-[14px] text-[#888]">Your job application dashboard</p>
       </div>
-      <Button
-        asChild
-        className="bg-white text-black hover:bg-gray-200"
+      <Link
+        href="/dashboard/new"
+        className="inline-flex h-9 items-center gap-2 rounded-full bg-white px-4 text-[14px] font-medium text-black transition-colors hover:bg-[#ccc]"
       >
-        <Link href="/dashboard/new">
-          <FilePlus className="mr-2 h-4 w-4" />
-          New Application
-        </Link>
-      </Button>
+        <FilePlus className="h-4 w-4" />
+        New Application
+      </Link>
     </div>
   );
 }

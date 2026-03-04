@@ -1,9 +1,9 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { CropMarks } from "@/components/ui/crop-marks";
 import { reprocessResume } from "@/app/dashboard/settings/actions";
 import type { ApplicantProfile } from "@/lib/types";
 import { useState } from "react";
@@ -28,46 +28,52 @@ export function ResumeSection({ profile }: { profile: ApplicantProfile }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-xl border border-[#1f1f1f] bg-[#111] p-6"
+      className="group relative overflow-hidden bg-[#0a0a0a] p-6"
     >
-      <h3 className="mb-2 text-lg font-semibold text-white">Resume & LinkedIn</h3>
-      <p className="mb-6 text-sm text-gray-400">
-        Re-upload your resume or update your LinkedIn URL to refresh your profile data.
+      <CropMarks />
+      <h3 className="mb-1 text-[16px] font-semibold text-white">
+        Resume & LinkedIn
+      </h3>
+      <p className="mb-6 text-[13px] text-[#888]">
+        Re-upload your resume or update your LinkedIn URL to refresh your
+        profile data.
       </p>
       <div className="space-y-4">
         <div className="space-y-2">
-          <Label className="text-gray-300">Resume Text</Label>
+          <Label className="text-[13px] text-[#888]">Resume Text</Label>
           <Textarea
             name="resume_text"
             rows={8}
             defaultValue={profile.resume_raw_text || ""}
             placeholder="Paste updated resume text..."
             required
-            className="border-[#1f1f1f] bg-[#0a0a0a] text-white placeholder:text-gray-600"
+            className="border-[#222] bg-black text-[14px] text-white placeholder:text-[#555] focus:border-[#444]"
           />
         </div>
         <div className="space-y-2">
-          <Label className="text-gray-300">LinkedIn URL</Label>
+          <Label className="text-[13px] text-[#888]">LinkedIn URL</Label>
           <Input
             name="linkedin_url"
             defaultValue={profile.linkedin_url}
             placeholder="https://linkedin.com/in/yourprofile"
-            className="border-[#1f1f1f] bg-[#0a0a0a] text-white"
+            className="border-[#222] bg-black text-[14px] text-white placeholder:text-[#555] focus:border-[#444]"
           />
         </div>
       </div>
       <div className="mt-6 flex items-center gap-3">
-        <Button
+        <button
           type="submit"
           disabled={loading}
-          className="bg-white text-black hover:bg-gray-200"
+          className="inline-flex h-9 items-center rounded-full bg-white px-5 text-[14px] font-medium text-black transition-colors hover:bg-[#ccc] disabled:opacity-50"
         >
           {loading ? "Processing..." : "Re-process Profile"}
-        </Button>
-        {saved && <span className="text-sm text-green-400">Profile updated</span>}
+        </button>
+        {saved && (
+          <span className="text-[12px] text-emerald-400">Profile updated</span>
+        )}
       </div>
       {loading && (
-        <p className="mt-3 text-sm text-gray-500">
+        <p className="mt-3 text-[13px] text-[#555]">
           This may take 30-60 seconds while our AI re-processes your profile...
         </p>
       )}

@@ -1,6 +1,7 @@
 "use client";
 
 import { Textarea } from "@/components/ui/textarea";
+import { CropMarks } from "@/components/ui/crop-marks";
 import { saveApplicationNotes } from "@/app/dashboard/applications/[id]/actions";
 import { useState, useRef, useCallback } from "react";
 
@@ -28,11 +29,12 @@ export function NotesEditor({
   );
 
   return (
-    <div className="rounded-xl border border-[#1f1f1f] bg-[#111] p-6">
+    <div className="group relative overflow-hidden bg-[#0a0a0a] p-6">
+      <CropMarks />
       <div className="mb-4 flex items-center justify-between">
-        <h3 className="font-semibold text-white">Notes</h3>
+        <h3 className="text-[14px] font-medium text-white">Notes</h3>
         {saved && (
-          <span className="text-xs text-green-400">Saved</span>
+          <span className="text-[12px] text-emerald-400">Saved</span>
         )}
       </div>
       <Textarea
@@ -43,7 +45,7 @@ export function NotesEditor({
         }}
         rows={4}
         placeholder="Add notes about this application..."
-        className="border-[#1f1f1f] bg-[#0a0a0a] text-white placeholder:text-gray-600"
+        className="border-[#222] bg-black text-[14px] text-white placeholder:text-[#555] focus:border-[#444]"
       />
     </div>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { KanbanCard } from "./kanban-card";
+import { CropMarks } from "@/components/ui/crop-marks";
 import type { GeneratedApplication, ApplicationStatus } from "@/lib/types";
 import { useState } from "react";
 
@@ -35,16 +36,17 @@ export function KanbanColumn({
 
   return (
     <div
-      className={`flex w-64 flex-shrink-0 flex-col rounded-xl border bg-[#0a0a0a] ${
-        dragOver ? "border-blue-500/50" : "border-[#1f1f1f]"
+      className={`group relative flex w-64 flex-shrink-0 flex-col overflow-hidden transition-colors ${
+        dragOver ? "bg-[#111]" : "bg-[#0a0a0a]"
       }`}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
     >
-      <div className="flex items-center justify-between border-b border-[#1f1f1f] px-4 py-3">
-        <span className="text-sm font-medium text-white">{label}</span>
-        <span className="rounded-full bg-[#1f1f1f] px-2 py-0.5 text-xs text-gray-400">
+      <CropMarks />
+      <div className="flex items-center justify-between border-b border-[#222] px-4 py-3">
+        <span className="text-[13px] font-medium text-white">{label}</span>
+        <span className="rounded-full bg-[#222] px-2 py-0.5 text-[11px] font-medium tabular-nums text-[#888]">
           {applications.length}
         </span>
       </div>
@@ -53,7 +55,7 @@ export function KanbanColumn({
           <KanbanCard key={app.id} application={app} />
         ))}
         {applications.length === 0 && (
-          <p className="py-8 text-center text-xs text-gray-600">
+          <p className="py-8 text-center text-[12px] text-[#555]">
             Drop here
           </p>
         )}

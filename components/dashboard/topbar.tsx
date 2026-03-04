@@ -7,7 +7,7 @@ import { MobileSidebar } from "./mobile-sidebar";
 import { useState } from "react";
 
 const breadcrumbMap: Record<string, string> = {
-  "/dashboard": "Dashboard",
+  "/dashboard": "Overview",
   "/dashboard/new": "New Application",
   "/dashboard/tracker": "Job Tracker",
   "/dashboard/settings": "Settings",
@@ -16,9 +16,11 @@ const breadcrumbMap: Record<string, string> = {
 export function Topbar({
   userName,
   userEmail,
+  userAvatar,
 }: {
   userName: string;
   userEmail: string;
+  userAvatar: string;
 }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -30,17 +32,17 @@ export function Topbar({
 
   return (
     <>
-      <header className="flex h-16 items-center justify-between border-b border-[#1f1f1f] bg-[#0a0a0a] px-6">
+      <header className="flex h-14 items-center justify-between border-b border-[#222] bg-black px-6">
         <div className="flex items-center gap-4">
           <Button
             variant="ghost"
             size="icon"
-            className="md:hidden"
+            className="text-[#888] hover:text-white md:hidden"
             onClick={() => setMobileOpen(true)}
           >
             <Menu className="h-5 w-5" />
           </Button>
-          <h1 className="text-lg font-semibold text-white">{breadcrumb}</h1>
+          <h1 className="text-[14px] font-medium text-white">{breadcrumb}</h1>
         </div>
       </header>
       <MobileSidebar
@@ -48,6 +50,7 @@ export function Topbar({
         onOpenChange={setMobileOpen}
         userName={userName}
         userEmail={userEmail}
+        userAvatar={userAvatar}
       />
     </>
   );

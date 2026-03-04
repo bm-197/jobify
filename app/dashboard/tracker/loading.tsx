@@ -9,7 +9,7 @@ export default function TrackerLoading() {
       </div>
       <div className="flex gap-4 overflow-hidden">
         {Array.from({ length: 4 }).map((_, i) => (
-          <Skeleton key={i} className="h-96 w-64 flex-shrink-0 rounded-xl bg-[#1f1f1f]" />
+          <Skeleton key={i} className="h-96 w-64 flex-shrink-0  bg-[#1f1f1f]" />
         ))}
       </div>
     </div>

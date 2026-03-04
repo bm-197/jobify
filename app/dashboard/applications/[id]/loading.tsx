@@ -14,8 +14,8 @@ export default function ApplicationLoading() {
         </div>
       </div>
       <Skeleton className="h-10 w-96 bg-[#1f1f1f]" />
-      <Skeleton className="h-80 rounded-xl bg-[#1f1f1f]" />
-      <Skeleton className="h-40 rounded-xl bg-[#1f1f1f]" />
+      <Skeleton className="h-80  bg-[#1f1f1f]" />
+      <Skeleton className="h-40  bg-[#1f1f1f]" />
     </div>
   );
 }

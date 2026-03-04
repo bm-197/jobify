@@ -12,10 +12,14 @@ export default async function SettingsPage() {
   if (!profile) redirect("/onboarding");
 
   return (
-    <div className="mx-auto max-w-2xl space-y-8">
+    <div className="mx-auto max-w-2xl space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-white">Settings</h2>
-        <p className="text-sm text-gray-400">Manage your profile and preferences</p>
+        <h2 className="text-[22px] font-semibold tracking-tight text-white">
+          Settings
+        </h2>
+        <p className="text-[14px] text-[#888]">
+          Manage your profile and preferences
+        </p>
       </div>
       <ProfileForm profile={profile} />
       <ResumeSection profile={profile} />

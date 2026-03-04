@@ -73,8 +73,17 @@ export interface ApplicantProfile {
 export interface JDAnalysis {
   job_title: string;
   company_name: string;
+  location?: string;
   required_skills: string[];
   preferred_skills: string[];
+  years_experience_required?: string;
+  key_responsibilities?: string[];
+  industry?: string;
+  seniority_level?: string;
+  posting_tone?: string;
+  tools_technologies?: string[];
+  salary_range?: string;
+  application_instructions?: string;
   [key: string]: unknown;
 }
 
@@ -82,8 +91,13 @@ export interface MatchAnalysis {
   match_score: number;
   matched_skills: string[];
   missing_skills: string[];
+  transferable_skills?: string[];
+  experience_highlights?: string[];
+  positioning_strategy?: string;
   talking_points: string[];
+  resume_adjustments?: string[];
   keywords_to_include: string[];
+  tone_recommendation?: string;
   [key: string]: unknown;
 }
 
@@ -114,4 +128,7 @@ export interface DashboardStats {
   avgMatchScore: number;
   thisWeek: number;
   interviews: number;
+  weeklyApps: number[];
+  weeklyScores: number[];
+  weeklyInterviews: number[];
 }

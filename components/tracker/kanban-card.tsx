@@ -16,20 +16,20 @@ export function KanbanCard({
     <div
       draggable
       onDragStart={handleDragStart}
-      className="cursor-grab rounded-lg border border-[#1f1f1f] bg-[#111] p-3 active:cursor-grabbing"
+      className="cursor-grab border border-[#222] bg-black p-3 transition-colors hover:border-[#333] active:cursor-grabbing"
     >
       <Link href={`/dashboard/applications/${application.id}`}>
-        <p className="text-sm font-medium text-white truncate">
+        <p className="truncate text-[13px] font-medium text-white">
           {application.job_title || "Untitled"}
         </p>
-        <p className="text-xs text-gray-500 truncate">
+        <p className="truncate text-[12px] text-[#555]">
           {application.company_name || "Unknown"}
         </p>
         <div className="mt-2 flex items-center justify-between">
-          <span className="text-xs text-gray-500">
+          <span className="text-[11px] text-[#555]">
             {new Date(application.created_at).toLocaleDateString()}
           </span>
-          <span className="text-xs font-medium text-blue-400">
+          <span className="text-[12px] font-medium tabular-nums text-white">
             {application.match_score}%
           </span>
         </div>

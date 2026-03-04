@@ -21,12 +21,13 @@ export default async function ApplicationDetailPage({
 
   return (
     <div className="mx-auto max-w-5xl space-y-8">
+      {/* Header */}
       <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-white">
+          <h2 className="text-[22px] font-semibold tracking-tight text-white">
             {application.job_title || "Untitled Position"}
           </h2>
-          <p className="text-gray-400">
+          <p className="text-[14px] text-[#888]">
             {application.company_name || "Unknown Company"} &middot;{" "}
             {new Date(application.created_at).toLocaleDateString()}
           </p>

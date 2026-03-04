@@ -9,6 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { CropMarks } from "@/components/ui/crop-marks";
 import { completeOnboarding } from "@/app/onboarding/actions";
 import { useState } from "react";
 
@@ -58,7 +59,8 @@ export function StepPreferences() {
           </Select>
         </div>
 
-        <div className="rounded-xl border border-[#1f1f1f] bg-[#111] p-6">
+        <div className="group relative overflow-hidden bg-[#111] p-6">
+          <CropMarks />
           <p className="text-sm text-gray-400">
             You can change your tone preference anytime from the Settings page.
             Your profile is now ready to generate tailored applications!
