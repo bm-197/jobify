@@ -9,11 +9,32 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Jobify",
-  description: "The fastest way to generate cover letter and resumes",
+  title: {
+    default: "Jobify — AI-Powered Cover Letters & Resumes",
+    template: "%s | Jobify",
+  },
+  description:
+    "Paste a job description, get a tailored cover letter, resume, and match analysis in seconds. Land more interviews with AI.",
   icons: {
-    icon: "/logo.png"
-  }
+    icon: "/logo.png",
+  },
+  openGraph: {
+    title: "Jobify — AI-Powered Cover Letters & Resumes",
+    description:
+      "Paste a job description, get a tailored cover letter, resume, and match analysis in seconds. Land more interviews with AI.",
+    url: defaultUrl,
+    siteName: "Jobify",
+    images: ["/opengraph-image"],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Jobify — AI-Powered Cover Letters & Resumes",
+    description:
+      "Paste a job description, get a tailored cover letter, resume, and match analysis in seconds.",
+    images: ["/opengraph-image"],
+  },
 };
 
 const geistSans = Geist({
