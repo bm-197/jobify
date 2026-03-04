@@ -1,15 +1,18 @@
 "use client";
 
-import { Copy, Download, FileText } from "lucide-react";
+import { Copy, Check, Download, FileText } from "lucide-react";
 import { CropMarks } from "@/components/ui/crop-marks";
 import ReactMarkdown from "react-markdown";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 export function CoverLetterView({ content }: { content: string }) {
   const letterRef = useRef<HTMLDivElement>(null);
+  const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(content);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const handleDownloadMd = () => {
@@ -91,10 +94,10 @@ export function CoverLetterView({ content }: { content: string }) {
         <div className="flex gap-1">
           <button
             onClick={handleCopy}
-            className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[13px] text-[#888] transition-colors hover:bg-[#222] hover:text-white"
+            className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[13px] transition-colors ${copied ? "text-emerald-400" : "text-[#888] hover:bg-[#222] hover:text-white"}`}
           >
-            <Copy className="h-3.5 w-3.5" />
-            Copy
+            {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+            {copied ? "Copied" : "Copy"}
           </button>
           <button
             onClick={handleDownloadMd}
