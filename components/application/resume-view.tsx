@@ -3,6 +3,7 @@
 import { Copy, Check, Download, FileText } from "lucide-react";
 import { CropMarks } from "@/components/ui/crop-marks";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { useRef, useState } from "react";
 
 export function ResumeView({ content }: { content: string }) {
@@ -82,6 +83,18 @@ export function ResumeView({ content }: { content: string }) {
     clone.querySelectorAll("em").forEach((el) => {
       (el as HTMLElement).style.cssText = "color:#555;font-style:italic;";
     });
+    clone.querySelectorAll("table").forEach((el) => {
+      (el as HTMLElement).style.cssText =
+        "width:100%;border-collapse:collapse;margin:8px 0;font-size:11px;";
+    });
+    clone.querySelectorAll("th").forEach((el) => {
+      (el as HTMLElement).style.cssText =
+        "border:1px solid #ccc;background:#f5f5f5;padding:4px 8px;text-align:left;font-weight:700;color:#111;font-size:11px;";
+    });
+    clone.querySelectorAll("td").forEach((el) => {
+      (el as HTMLElement).style.cssText =
+        "border:1px solid #ccc;padding:4px 8px;color:#333;font-size:11px;";
+    });
 
     const container = document.createElement("div");
     container.appendChild(clone);
@@ -134,9 +147,9 @@ export function ResumeView({ content }: { content: string }) {
         {content ? (
           <div
             ref={resumeRef}
-            className="prose-invert max-w-none text-[14px] leading-[1.7] text-[#ccc] [&_h1]:mb-2 [&_h1]:mt-0 [&_h1]:text-[20px] [&_h1]:font-bold [&_h1]:tracking-tight [&_h1]:text-white [&_h2]:mb-2 [&_h2]:mt-6 [&_h2]:border-b [&_h2]:border-[#222] [&_h2]:pb-1 [&_h2]:text-[16px] [&_h2]:font-semibold [&_h2]:text-white [&_h3]:mb-1 [&_h3]:mt-4 [&_h3]:text-[14px] [&_h3]:font-semibold [&_h3]:text-white [&_a]:text-[#0070f3] [&_a]:no-underline hover:[&_a]:underline [&_hr]:my-4 [&_hr]:border-[#222] [&_li]:ml-4 [&_li]:text-[#ccc] [&_ol]:my-2 [&_ol]:list-decimal [&_ol]:pl-4 [&_p]:my-2 [&_p]:text-[#ccc] [&_strong]:font-semibold [&_strong]:text-white [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-4"
+            className="prose-invert max-w-none text-[14px] leading-[1.7] text-[#ccc] [&_h1]:mb-2 [&_h1]:mt-0 [&_h1]:text-[20px] [&_h1]:font-bold [&_h1]:tracking-tight [&_h1]:text-white [&_h2]:mb-2 [&_h2]:mt-6 [&_h2]:border-b [&_h2]:border-[#222] [&_h2]:pb-1 [&_h2]:text-[16px] [&_h2]:font-semibold [&_h2]:text-white [&_h3]:mb-1 [&_h3]:mt-4 [&_h3]:text-[14px] [&_h3]:font-semibold [&_h3]:text-white [&_a]:text-[#0070f3] [&_a]:no-underline hover:[&_a]:underline [&_hr]:my-4 [&_hr]:border-[#222] [&_li]:ml-4 [&_li]:text-[#ccc] [&_ol]:my-2 [&_ol]:list-decimal [&_ol]:pl-4 [&_p]:my-2 [&_p]:text-[#ccc] [&_strong]:font-semibold [&_strong]:text-white [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-4 [&_table]:my-4 [&_table]:w-full [&_table]:border-collapse [&_th]:border [&_th]:border-[#222] [&_th]:bg-[#111] [&_th]:px-3 [&_th]:py-2 [&_th]:text-left [&_th]:text-[13px] [&_th]:font-semibold [&_th]:text-white [&_td]:border [&_td]:border-[#222] [&_td]:px-3 [&_td]:py-2 [&_td]:text-[13px] [&_td]:text-[#ccc]"
           >
-            <ReactMarkdown>{content}</ReactMarkdown>
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
           </div>
         ) : (
           <p className="text-[14px] text-[#555]">No resume generated.</p>

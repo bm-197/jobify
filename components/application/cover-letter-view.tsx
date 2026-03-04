@@ -3,6 +3,7 @@
 import { Copy, Check, Download, FileText } from "lucide-react";
 import { CropMarks } from "@/components/ui/crop-marks";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { useRef, useState } from "react";
 
 export function CoverLetterView({ content }: { content: string }) {
@@ -121,7 +122,7 @@ export function CoverLetterView({ content }: { content: string }) {
             ref={letterRef}
             className="prose-invert max-w-none text-[14px] leading-[1.7] text-[#ccc] [&_h1]:mb-2 [&_h1]:mt-0 [&_h1]:text-[20px] [&_h1]:font-bold [&_h1]:tracking-tight [&_h1]:text-white [&_h2]:mb-2 [&_h2]:mt-6 [&_h2]:text-[16px] [&_h2]:font-semibold [&_h2]:text-white [&_h3]:mb-1 [&_h3]:mt-4 [&_h3]:text-[14px] [&_h3]:font-semibold [&_h3]:text-white [&_a]:text-[#0070f3] [&_a]:no-underline hover:[&_a]:underline [&_p]:my-2 [&_p]:text-[#ccc] [&_strong]:font-semibold [&_strong]:text-white"
           >
-            <ReactMarkdown>{content}</ReactMarkdown>
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
           </div>
         ) : (
           <p className="text-[14px] text-[#555]">No cover letter generated.</p>
