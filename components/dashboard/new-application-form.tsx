@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -8,6 +9,7 @@ import { generateApplication } from "@/app/dashboard/new/actions";
 import { GenerationProgress } from "./generation-progress";
 
 export function NewApplicationForm() {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [inputType, setInputType] = useState<"url" | "text">("text");
@@ -19,7 +21,12 @@ export function NewApplicationForm() {
     try {
       const formData = new FormData(e.currentTarget);
       formData.set("input_type", inputType);
-      await generateApplication(formData);
+      const { applicationId } = await generateApplication(formData);
+      if (applicationId) {
+        router.push(`/dashboard/applications/${applicationId}`);
+      } else {
+        router.push("/dashboard");
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Generation failed");
       setLoading(false);

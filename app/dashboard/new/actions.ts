@@ -3,9 +3,8 @@
 import { createClient } from "@/lib/supabase/server";
 import { callGenerateApplication } from "@/lib/n8n";
 import { getApplicantProfile } from "@/lib/queries";
-import { redirect } from "next/navigation";
 
-export async function generateApplication(formData: FormData) {
+export async function generateApplication(formData: FormData): Promise<{ applicationId: string | null }> {
   const supabase = await createClient();
   const profile = await getApplicantProfile(supabase);
 
@@ -32,8 +31,8 @@ export async function generateApplication(formData: FormData) {
     data?.record_id || data?.id || data?.application_id || result?.record_id;
 
   if (applicationId && applicationId !== "unknown") {
-    redirect(`/dashboard/applications/${applicationId}`);
+    return { applicationId };
   }
 
-  redirect("/dashboard");
+  return { applicationId: null };
 }
