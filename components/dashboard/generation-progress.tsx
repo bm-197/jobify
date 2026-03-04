@@ -31,7 +31,7 @@ export function GenerationProgress() {
       <p className="mb-10 text-[14px] text-[#888]">
         This usually takes 30-60 seconds.
       </p>
-      <div className="space-y-3 text-left">
+      <div className="mx-auto inline-block space-y-3 text-left">
         {steps.map((step, i) => (
           <div
             key={i}
