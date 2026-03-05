@@ -13,7 +13,7 @@ const tabs = [
 const filenames: Record<string, string> = {
   "cover-letter": "cover-letter-output.md",
   resume: "tailored-resume.md",
-  "match-analysis": "match-analysis.json",
+  "match-analysis": "match-analysis.md",
   "gap-report": "gap-report.md",
 };
 
@@ -145,47 +145,68 @@ function MatchAnalysisContent() {
   return (
     <>
       <p className="text-[#666]">{"// Match analysis results"}</p>
-      <p className="mt-4">{"{"}</p>
-      <p className="ml-4">
-        <span className="text-[#0070f3]">&quot;match_score&quot;</span>:{" "}
-        <span className="text-emerald-400">87</span>,
-      </p>
-      <p className="ml-4">
-        <span className="text-[#0070f3]">&quot;matched_skills&quot;</span>: [
-      </p>
-      <p className="ml-8">
-        <span className="text-emerald-400">&quot;React&quot;</span>,{" "}
-        <span className="text-emerald-400">&quot;Next.js&quot;</span>,{" "}
-        <span className="text-emerald-400">&quot;TypeScript&quot;</span>,{" "}
-        <span className="text-emerald-400">&quot;Tailwind CSS&quot;</span>,
-      </p>
-      <p className="ml-8">
-        <span className="text-emerald-400">&quot;REST APIs&quot;</span>,{" "}
-        <span className="text-emerald-400">&quot;CI/CD&quot;</span>,{" "}
-        <span className="text-emerald-400">&quot;Performance Optimization&quot;</span>,
-      </p>
-      <p className="ml-8">
-        <span className="text-emerald-400">&quot;Team Leadership&quot;</span>,{" "}
-        <span className="text-emerald-400">&quot;Agile/Scrum&quot;</span>,{" "}
-        <span className="text-emerald-400">&quot;Code Review&quot;</span>
-      </p>
-      <p className="ml-4">],</p>
-      <p className="ml-4">
-        <span className="text-[#0070f3]">&quot;missing_skills&quot;</span>: [
-      </p>
-      <p className="ml-8">
-        <span className="text-red-400">&quot;GraphQL&quot;</span>,{" "}
-        <span className="text-red-400">&quot;AWS Lambda&quot;</span>
-      </p>
-      <p className="ml-4">],</p>
-      <p className="ml-4">
-        <span className="text-[#0070f3]">&quot;talking_points&quot;</span>: [
-      </p>
-      <p className="ml-8 text-white">&quot;Led Next.js 14 migration — directly relevant&quot;</p>
-      <p className="ml-8 text-white">&quot;62% LCP improvement demonstrates perf expertise&quot;</p>
-      <p className="ml-8 text-white">&quot;Team mentorship aligns with senior role expectations&quot;</p>
-      <p className="ml-4">]</p>
-      <p>{"}"}</p>
+
+      {/* Match Score */}
+      <div className="mt-5">
+        <p className="text-[12px] font-medium uppercase tracking-wider text-[#555]">
+          Match Score
+        </p>
+        <div className="mt-2 flex items-center gap-3">
+          <div className="h-2 flex-1 bg-[#222]">
+            <div className="h-full w-[87%] bg-emerald-500" />
+          </div>
+          <span className="text-[16px] font-bold tabular-nums text-white font-sans">
+            87%
+          </span>
+        </div>
+      </div>
+
+      {/* Matched Skills */}
+      <div className="mt-6">
+        <p className="text-[12px] font-medium uppercase tracking-wider text-[#555]">
+          Matched Skills
+        </p>
+        <div className="mt-2 flex flex-wrap gap-2 font-sans">
+          {["React", "Next.js", "TypeScript", "Tailwind CSS", "REST APIs", "CI/CD", "Performance Optimization", "Team Leadership", "Agile/Scrum", "Code Review"].map((skill) => (
+            <span key={skill} className="border border-emerald-500/20 bg-emerald-500/5 px-3 py-1 text-[12px] text-emerald-400">
+              {skill}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Missing Skills */}
+      <div className="mt-6">
+        <p className="text-[12px] font-medium uppercase tracking-wider text-[#555]">
+          Missing Skills
+        </p>
+        <div className="mt-2 flex flex-wrap gap-2 font-sans">
+          {["GraphQL", "AWS Lambda"].map((skill) => (
+            <span key={skill} className="border border-red-500/20 bg-red-500/5 px-3 py-1 text-[12px] text-red-400">
+              {skill}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Talking Points */}
+      <div className="mt-6">
+        <p className="text-[12px] font-medium uppercase tracking-wider text-[#555]">
+          Talking Points
+        </p>
+        <ul className="mt-2 space-y-2 font-sans">
+          {[
+            "Led Next.js 14 migration — directly relevant",
+            "62% LCP improvement demonstrates perf expertise",
+            "Team mentorship aligns with senior role expectations",
+          ].map((point, i) => (
+            <li key={i} className="flex gap-3 text-[14px] text-[#ccc]">
+              <span className="mt-0.5 text-[#555]">&bull;</span>
+              <span>{point}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
     </>
   );
 }
