@@ -3,6 +3,13 @@
 import { useState, useMemo } from "react";
 import { Search, X } from "lucide-react";
 import { KanbanColumn } from "./kanban-column";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import type { GeneratedApplication, ApplicationStatus } from "@/lib/types";
 import { changeApplicationStatus } from "@/app/dashboard/applications/[id]/actions";
 
@@ -90,9 +97,6 @@ export function KanbanBoard({
     setMinScore(0);
   };
 
-  const selectStyles =
-    "h-9 rounded-none border border-[#222] bg-black px-3 text-sm text-white outline-none focus:border-white/40";
-
   return (
     <div>
       <div className="mb-4 flex flex-wrap items-center gap-3">
@@ -107,29 +111,31 @@ export function KanbanBoard({
           />
         </div>
 
-        <select
-          value={dateFilter}
-          onChange={(e) => setDateFilter(e.target.value as DateFilter)}
-          className={selectStyles}
-        >
-          {dateFilterOptions.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
+        <Select value={dateFilter} onValueChange={(v) => setDateFilter(v as DateFilter)}>
+          <SelectTrigger className="h-9 w-[150px]">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {dateFilterOptions.map((opt) => (
+              <SelectItem key={opt.value} value={opt.value}>
+                {opt.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
 
-        <select
-          value={minScore}
-          onChange={(e) => setMinScore(Number(e.target.value))}
-          className={selectStyles}
-        >
-          {scoreFilterOptions.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
+        <Select value={String(minScore)} onValueChange={(v) => setMinScore(Number(v))}>
+          <SelectTrigger className="h-9 w-[130px]">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {scoreFilterOptions.map((opt) => (
+              <SelectItem key={opt.value} value={String(opt.value)}>
+                {opt.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
 
         {isFiltered && (
           <div className="flex items-center gap-2">
